@@ -7,4 +7,5 @@ src為自己寫的檔案，涵蓋 檔案系統操作/Networking/Thread等
 
 其餘安裝步驟與說明，請參考部落格系列文章
 1. [\[從libuv/v8到nodejs 系列\] ：Libuv - 環境建置與說明](http://sj82516-blog.logdown.com/posts/3903966/from-libuv-v8-to-nodejs-series-libuv-environment-setting-and-description)
-2. 1. [\[從libuv/v8到nodejs 系列\] ：Libuv - 操作File System](http://sj82516-blog.logdown.com/posts/3903962/libuv-operation-file-system)
+2. [\[從libuv/v8到nodejs 系列\] ：Libuv - 操作File System](http://sj82516-blog.logdown.com/posts/3903962/libuv-operation-file-system)
+3. [\[\]]

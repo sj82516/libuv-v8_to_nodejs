@@ -42,11 +42,9 @@ static void write_cb(uv_write_t*, int);
 // 每當有新的連線完成，就會觸發(completely established sockets)
 static void onconnection(uv_stream_t* server, int status){
     int r = 0;
-    printf("connection status");
-
     uv_shutdown_t* shutdown_req;
 
-    printf("Accepting Connection");
+    printf("Accepting Connection\n");
 
     uv_tcp_t* client = malloc(sizeof(uv_tcp_t));
 
@@ -67,15 +65,18 @@ static void alloc_cb(uv_handle_t* handle, size_t size, uv_buf_t* buf){
     buf->len = size;
 }
 
+// 關閉Server，需手動清除記憶體
 static void shutdown_cb(uv_shutdown_t* req, int status){
     uv_close((uv_handle_t*) req-> handle, close_cb);
     free(req);
 }
 
+// 關閉連線，需手動清除記憶體
 static void close_cb(uv_handle_t* client){
     free(client);
 }
 
+// 從tcp連線讀取client發送的內容
 static void read_cb(uv_stream_t* client, ssize_t nread, const uv_buf_t* buf){
     int r = 0;
     uv_shutdown_t *shutdown_req;
@@ -102,11 +103,13 @@ static void read_cb(uv_stream_t* client, ssize_t nread, const uv_buf_t* buf){
         exit(0);
     }
 
+    // 準備回傳資料
     write_req_t *write_req = malloc(sizeof(write_req_t));
     write_req->buf = uv_buf_init(buf->base, nread);
     r = uv_write(&write_req->req, client, &write_req->buf, NBUFS, write_cb);
 }
 
+// 回傳資料後，清除記憶體
 static void write_cb(uv_write_t* req, int status){
 
     write_req_t *write_req = (write_req_t*) req;
